@@ -27,7 +27,13 @@ bool did_hit;
 
 
 player_count = fillPlayerCount();
- 
+
+while(player_count < 2){
+    cout << "You must have at least 2 players." << endl;
+    player_count = fillPlayerCount();
+}
+
+
 vector <Player> Player (player_count);
 
 //Set player names
