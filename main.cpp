@@ -70,12 +70,19 @@ cout << "New turn " << endl;
             
                 if(decision == 'a'){
                     cout << Player[i].getName() << ": Enter in coordinates to attack." << endl;
+                    
                     cout << "Enter X coordinate: " << endl;
                     cin >> x;
                     cout << "Enter Y coordinate: " << endl;
                     cin >> y;
                     
+                    if(!((x >= 0 || x < 10) && y >= 0 || (y >= 0 || x < 10))){
+                        cout << "Invalid coordinates. Pick 0-9." << endl;
+                        //todo
+                    }
                     did_hit = Player[j].actionAttacked(x,y);
+                    Player[j].displayLess();
+                    
                     //TODO - get return value for success, if success roll for drinking/ stripping
                 }
                 
