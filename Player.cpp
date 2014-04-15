@@ -419,11 +419,15 @@ bool Player::actionAttacked(int x, int y){
     
     if(board[y][x].ship_tile){
     
-    board[y][x].hit == true;
+    board[y][x].hit = true;
     
     hit_tiles++;
     
     return true;
+    }
+    
+    else{
+        board[y][x].miss = true;
     }
 
 return false;
@@ -432,8 +436,38 @@ return false;
 
 
 void Player::displayLess(){//For when the ships should not be displayed, only hits/ misses
+    int row = 0;
+    int col = 0;
+    
+    for(row = 9; row >= 0; row--){
+
+        cout << "[" << row << "]";
+        
+        for(col = 0; col < 10; col++){
+
+            
+            if(board[row][col].hit){
+            cout << "[H]";
+            }
+            
+            else if(board[row][col].miss){
+            cout << "[M]";
+            }
+            else{
+            cout << "[_]";
+            }
+        }
+        cout << "\n";
+
+    }
+    cout << "[_][0][1][2][3][4][5][6][7][8][9]" << endl;
+  
+  
     
 }
+
+
+
 
 void Player::displayAll(){//For when a player wants to see their own board
     int row = 0;
