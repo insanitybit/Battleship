@@ -6,16 +6,18 @@
 #include <string>
 #include <ctime>
 #include <vector>
-#include "Player.cpp"
+#include "Players.h"
 
 using namespace std;
 
-const int piece_count = 17;
+
 
 int fillPlayerCount();
 bool checkLoser(int x);
 void roll();
 
+
+const int piece_count = 17;
 int main(){
 int i = 0;
 int j = 0;
@@ -106,7 +108,7 @@ cout << "New turn " << endl;
                     Player[j].displayLess();
                     
                     if (did_hit == true){
-                    roll();
+                   // roll();
                     }
                     
                     //TODO - get return value for success, if success roll for drinking/ stripping
@@ -133,7 +135,7 @@ cout << "New turn " << endl;
         
             if(checkLoser(j)){//returns TRUE if 'j' has lost
             cout << Player[j].getName() << " loses!" << endl;
-            Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
+           // Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
        }
        
         
@@ -147,7 +149,7 @@ cout << "New turn " << endl;
 
 cout << "The winner is: " << Player[0].getName() << "!! Congratulations." << endl;
     
-}
+} //end main
 
 
 bool checkLoser(int x){
@@ -170,6 +172,7 @@ int fillPlayerCount(){
     return count;
     
 }
+
 
 void roll(){
 
