@@ -7,14 +7,16 @@
 #include <string>
 #include <ctime>
 #include <vector>
+#include <map>
+
 
 using namespace std;
 
-class Player
+class Players
 {
 
 public:
-Player();
+Players();
 void setPieces();
 void setName(string new_name);
 string getName();
@@ -23,9 +25,16 @@ void displayLess();
 void displayAll();
 
 private:
+void makeMove(int yC, int xC, string direction, string ship_t);
 string name;
 bool validMove(int x, int y, string direction, int ship_size);
 int hit_tiles;
+
+
+map<string, int> Ships;
+
+string ship_types[5] = {"Patrol Boat", "Cruiser", "Submarine", "Battleship", "Aircraft Carrier"};
+
 
 struct Tile{
     bool ship_tile = false; //True if tile is holding a ship piece
@@ -51,98 +60,29 @@ Inventory Inventory;
 
 };
 
-Player::Player(){
+Players::Players(){
     cout << "\n\n\nTHIS IS THE CONSTRUCTOR\n\n\n" << endl;
 }
 
 
 //There are 17 'pieces' and 5 ships. Players will place the pieces one at a time.
-void Player::setPieces(){
+void Players::setPieces(){
     int x_coord = 0;
     int y_coord = 0;
     bool first_turn = true;
     int pieces = 17;
-    int ships = 5;
+    const int ships = 5;
     int i = 0;
-    int ship_size;
-    string ship_type;
-    string direction;
+    string direction_v;
     
     //First turn has no checks or rules
     
     
     displayAll();
     
-    ship_type = "patrol boat";
-    ship_size = 2;
     
-    cout << "Time to put the first piece of your " << ship_type << " down." << endl;
-    
-    cout << "Enter in X coordinate: " << endl;
-    cin >> x_coord;
-    cout << "Enter in Y coordinate: " << endl;
-    cin >> y_coord;
-    cout << "Which direction should your ship continue in?" << endl;
-    cout << "Enter up, down, left, right." << endl;
-    cin >> direction;
-    
-    if (validMove(x_coord, y_coord, direction, ship_size)){
-        board[y_coord][x_coord].ship_tile = true;
-        board[y_coord][x_coord].hit = false;
-        board[y_coord][x_coord].miss = false;
-        board[y_coord][x_coord].type_of_ship = ship_type;
-        cout << "first piece set " << endl;
-        while(i < ship_size){
-            
-        if(direction == "up"){
-        
-        board[y_coord+i][x_coord].ship_tile = true;
-        board[y_coord+i][x_coord].hit = false;
-        board[y_coord+i][x_coord].miss = false;
-        board[y_coord+i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "down"){
-        
-        board[y_coord-i][x_coord].ship_tile = true;
-        board[y_coord-i][x_coord].hit = false;
-        board[y_coord-i][x_coord].miss = false;
-        board[y_coord-i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "left"){
-        
-        board[y_coord][x_coord-i].ship_tile = true;
-        board[y_coord][x_coord-i].hit = false;
-        board[y_coord][x_coord-i].miss = false;
-        board[y_coord][x_coord-i].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "right"){
-        
-        board[y_coord][x_coord+i].ship_tile = true;
-        board[y_coord][x_coord+i].hit = false;
-        board[y_coord][x_coord+i].miss = false;
-        board[y_coord][x_coord+i].type_of_ship = ship_type;    
-        i++;
-        }
-            
-        }
-        
-    }
-    
-    displayAll();
-    
-    first_turn = false;
-    ship_size = 3;
-    ship_type = "cruiser";
-    
-    i = 0;
-    
-    cout << "Time to put the first piece of your " << ship_type << " down." << endl;
+    for(i = 0; i < ships; i++){
+    cout << "Time to put the first piece of your " << ship_types[i] << " down." << endl;
     
     cout << "Enter in X coordinate: " << endl;
     cin >> x_coord;
@@ -150,280 +90,48 @@ void Player::setPieces(){
     cin >> y_coord;
     cout << "Which direction should your ship continue in?" << endl;
     cout << "Enter up, down, left, right." << endl;
-    cin >> direction;
-    
-    if (validMove(x_coord, y_coord, direction, ship_size)){
-        board[y_coord][x_coord].ship_tile = true;
-        board[y_coord][x_coord].hit = false;
-        board[y_coord][x_coord].miss = false;
-        board[y_coord][x_coord].type_of_ship = ship_type;
-        cout << "first piece set " << endl;
-        while(i < ship_size){
-            
-        if(direction == "up"){
-        
-        board[y_coord+i][x_coord].ship_tile = true;
-        board[y_coord+i][x_coord].hit = false;
-        board[y_coord+i][x_coord].miss = false;
-        board[y_coord+i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "down"){
-        
-        board[y_coord-i][x_coord].ship_tile = true;
-        board[y_coord-i][x_coord].hit = false;
-        board[y_coord-i][x_coord].miss = false;
-        board[y_coord-i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "left"){
-        
-        board[y_coord][x_coord-i].ship_tile = true;
-        board[y_coord][x_coord-i].hit = false;
-        board[y_coord][x_coord-i].miss = false;
-        board[y_coord][x_coord-i].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "right"){
-        
-        board[y_coord][x_coord+i].ship_tile = true;
-        board[y_coord][x_coord+i].hit = false;
-        board[y_coord][x_coord+i].miss = false;
-        board[y_coord][x_coord+i].type_of_ship = ship_type;    
-        i++;
-        }
-            
-        }
-        
-    }
-    
-    displayAll();
+    cin >> direction_v;
 
-    
-    i = 0;
-    
-    ship_type = "submarine";
-    ship_size = 3;
 
-    cout << "Time to put the first piece of your " << ship_type << " down." << endl;
+    makeMove(y_coord, x_coord, direction_v, ship_types[i]);
     
-    cout << "Enter in X coordinate: " << endl;
-    cin >> x_coord;
-    cout << "Enter in Y coordinate: " << endl;
-    cin >> y_coord;
-    cout << "Which direction should your ship continue in?" << endl;
-    cout << "Enter up, down, left, right." << endl;
-    cin >> direction;
-    
-    if (validMove(x_coord, y_coord, direction, ship_size)){
-        board[y_coord][x_coord].ship_tile = true;
-        board[y_coord][x_coord].hit = false;
-        board[y_coord][x_coord].miss = false;
-        board[y_coord][x_coord].type_of_ship = ship_type;
-        cout << "first piece set " << endl;
-        while(i < ship_size){
-            
-        if(direction == "up"){
-        
-        board[y_coord+i][x_coord].ship_tile = true;
-        board[y_coord+i][x_coord].hit = false;
-        board[y_coord+i][x_coord].miss = false;
-        board[y_coord+i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "down"){
-        
-        board[y_coord-i][x_coord].ship_tile = true;
-        board[y_coord-i][x_coord].hit = false;
-        board[y_coord-i][x_coord].miss = false;
-        board[y_coord-i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "left"){
-        
-        board[y_coord][x_coord-i].ship_tile = true;
-        board[y_coord][x_coord-i].hit = false;
-        board[y_coord][x_coord-i].miss = false;
-        board[y_coord][x_coord-i].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "right"){
-        
-        board[y_coord][x_coord+i].ship_tile = true;
-        board[y_coord][x_coord+i].hit = false;
-        board[y_coord][x_coord+i].miss = false;
-        board[y_coord][x_coord+i].type_of_ship = ship_type;    
-        i++;
-        }
-            
-        }
-        
     }
-    
-    displayAll();
-    
-    i = 0;
-    
-    ship_type = "battleship";
-    ship_size = 4;
-    
-    cout << "Time to put the first piece of your " << ship_type << " down." << endl;
-    
-    cout << "Enter in X coordinate: " << endl;
-    cin >> x_coord;
-    cout << "Enter in Y coordinate: " << endl;
-    cin >> y_coord;
-    cout << "Which direction should your ship continue in?" << endl;
-    cout << "Enter up, down, left, right." << endl;
-    cin >> direction;
-    
-    if (validMove(x_coord, y_coord, direction, ship_size)){
-        board[y_coord][x_coord].ship_tile = true;
-        board[y_coord][x_coord].hit = false;
-        board[y_coord][x_coord].miss = false;
-        board[y_coord][x_coord].type_of_ship = ship_type;
-        cout << "first piece set " << endl;
-        while(i < ship_size){
-            
-        if(direction == "up"){
-        
-        board[y_coord+i][x_coord].ship_tile = true;
-        board[y_coord+i][x_coord].hit = false;
-        board[y_coord+i][x_coord].miss = false;
-        board[y_coord+i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "down"){
-        
-        board[y_coord-i][x_coord].ship_tile = true;
-        board[y_coord-i][x_coord].hit = false;
-        board[y_coord-i][x_coord].miss = false;
-        board[y_coord-i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "left"){
-        
-        board[y_coord][x_coord-i].ship_tile = true;
-        board[y_coord][x_coord-i].hit = false;
-        board[y_coord][x_coord-i].miss = false;
-        board[y_coord][x_coord-i].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "right"){
-        
-        board[y_coord][x_coord+i].ship_tile = true;
-        board[y_coord][x_coord+i].hit = false;
-        board[y_coord][x_coord+i].miss = false;
-        board[y_coord][x_coord+i].type_of_ship = ship_type;    
-        i++;
-        }
-            
-        }
-        
-    }
-    
-    displayAll();
-    
-    
-    i = 0;
-    
-    ship_type = "aircraft carrier";
-    ship_size = 5;
-    
-    cout << "Time to put the first piece of your " << ship_type << " down." << endl;
-    
-    cout << "Enter in X coordinate: " << endl;
-    cin >> x_coord;
-    cout << "Enter in Y coordinate: " << endl;
-    cin >> y_coord;
-    cout << "Which direction should your ship continue in?" << endl;
-    cout << "Enter up, down, left, right." << endl;
-    cin >> direction;
-    
-    if (validMove(x_coord, y_coord, direction, ship_size)){
-        board[y_coord][x_coord].ship_tile = true;
-        board[y_coord][x_coord].hit = false;
-        board[y_coord][x_coord].miss = false;
-        board[y_coord][x_coord].type_of_ship = ship_type;
-        cout << "first piece set " << endl;
-        while(i < ship_size){
-            
-        if(direction == "up"){
-        
-        board[y_coord+i][x_coord].ship_tile = true;
-        board[y_coord+i][x_coord].hit = false;
-        board[y_coord+i][x_coord].miss = false;
-        board[y_coord+i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "down"){
-        
-        board[y_coord-i][x_coord].ship_tile = true;
-        board[y_coord-i][x_coord].hit = false;
-        board[y_coord-i][x_coord].miss = false;
-        board[y_coord-i][x_coord].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "left"){
-        
-        board[y_coord][x_coord-i].ship_tile = true;
-        board[y_coord][x_coord-i].hit = false;
-        board[y_coord][x_coord-i].miss = false;
-        board[y_coord][x_coord-i].type_of_ship = ship_type;    
-        i++;
-        }
-        
-        else if(direction == "right"){
-        
-        board[y_coord][x_coord+i].ship_tile = true;
-        board[y_coord][x_coord+i].hit = false;
-        board[y_coord][x_coord+i].miss = false;
-        board[y_coord][x_coord+i].type_of_ship = ship_type;    
-        i++;
-        }
-            
-        }
-        
-    }
-    
-    displayAll();
-    
-    
-    
     
 }
 
 
-void Player::setName(string new_name){
+void Players::setName(string new_name){
     name = new_name;
 
 }
 
-string Player::getName(){
+string Players::getName(){
     
     return name;
 }
 
-bool Player::actionAttacked(int x, int y){
+int Players::getHits(){
+
+return hit_tiles;
+}
+
+bool Players::actionAttacked(int x, int y){
     
-    if(board[y][x].ship_tile){
+    if(board[y][x].ship_tile && board[y][x].hit == false){
     
     board[y][x].hit = true;
     
     hit_tiles++;
     
     return true;
+    }
+    
+    else if(board[y][x].hit == true){
+    cout << "You've already gone here...'" << endl;
+    
+    makeMove(300, 300, "no_ship", "invalid"); //SEND MAKEMOVE() INVALID INFORMATION TO ALWAYS REDO MOVE
+    
+    
     }
     
     else{
@@ -435,7 +143,7 @@ return false;
 }
 
 
-void Player::displayLess(){//For when the ships should not be displayed, only hits/ misses
+void Players::displayLess(){//For when the ships should not be displayed, only hits/ misses
     int row = 0;
     int col = 0;
     
@@ -469,7 +177,7 @@ void Player::displayLess(){//For when the ships should not be displayed, only hi
 
 
 
-void Player::displayAll(){//For when a player wants to see their own board
+void Players::displayAll(){//For when a player wants to see their own board
     int row = 0;
     int col = 0;
     
@@ -480,10 +188,18 @@ void Player::displayAll(){//For when a player wants to see their own board
         for(col = 0; col < 10; col++){
 
             
-            if(board[row][col].ship_tile){
+            if(board[row][col].ship_tile && !board[row][col].hit){
             cout << "[S]";
             }
             
+            else if(board[row][col].hit){
+            cout << "[H]";
+            }
+            
+            else if(board[row][col].miss){
+            cout << "[M]";
+            }
+                        
             else{
             cout << "[_]";
             }
@@ -494,7 +210,90 @@ void Player::displayAll(){//For when a player wants to see their own board
     cout << "[_][0][1][2][3][4][5][6][7][8][9]" << endl;
 }
 
-bool Player::validMove(int x, int y, string direction, int ship_size){
+void Players::makeMove(int yC, int xC, string direction, string ship_t){
+
+
+    Ships["Patrol Boat"]         = 2; //0
+    Ships["Cruiser"]             = 3; //1
+    Ships["Submarine"]           = 3; //2
+    Ships["Battleship"]          = 4; //3
+    Ships["Aircraft Carrier"]    = 5; //4
+
+    int i = 0;
+
+    while (!(validMove(xC, yC, direction, Ships[ship_t]))){
+    
+    cout << "Invalid move." << endl;
+    cout << "Try again. Only positive integers between 0 and 9!!" << endl;
+    cout << "Enter in X coordinate: " << endl;
+    cin >> xC;
+    cout << "Enter in Y coordinate: " << endl;
+    cin >> yC;
+    cout << "Which direction should your ship continue in?" << endl;
+    cout << "Enter up, down, left, right." << endl;
+    cin >> direction;
+    
+    
+    
+    }
+    
+    
+    if (validMove(xC, yC, direction, Ships[ship_t])){
+        board[yC][xC].ship_tile = true;
+        board[yC][xC].hit = false;
+        board[yC][xC].miss = false;
+        board[yC][xC].type_of_ship = ship_t;
+        cout << "first piece set " << endl;
+    
+        while(i < Ships[ship_t]){
+            
+        if(direction == "up"){
+        
+        board[yC+i][xC].ship_tile = true;
+        board[yC+i][xC].hit = false;
+        board[yC+i][xC].miss = false;
+        board[yC+i][xC].type_of_ship = ship_t;    
+        i++;
+        }
+        
+        else if(direction == "down"){
+        
+        board[yC-i][xC].ship_tile = true;
+        board[yC-i][xC].hit = false;
+        board[yC-i][xC].miss = false;
+        board[yC-i][xC].type_of_ship = ship_t;    
+        i++;
+        }
+        
+        else if(direction == "left"){
+        
+        board[yC][xC-i].ship_tile = true;
+        board[yC][xC-i].hit = false;
+        board[yC][xC-i].miss = false;
+        board[yC][xC-i].type_of_ship = ship_t;    
+        i++;
+        }
+        
+        else if(direction == "right"){
+        
+        board[yC][xC+i].ship_tile = true;
+        board[yC][xC+i].hit = false;
+        board[yC][xC+i].miss = false;
+        board[yC][xC+i].type_of_ship = ship_t;    
+        i++;
+        }
+            
+        }
+        
+    }
+    
+
+    displayAll();
+
+
+}
+
+bool Players::validMove(int x, int y, string direction, int ship_size){
     bool is_valid = true;
     int i = 0;
     
@@ -512,25 +311,30 @@ bool Player::validMove(int x, int y, string direction, int ship_size){
                 }
         }
         
-        if(direction == "down" && y - ship_size >= 0){
+        else if(direction == "down" && y - ship_size >= 0){
         
             if(board[y-i][x].ship_tile == true){
                 return false;
                 }
         }
         
-        if(direction == "left" && x - ship_size >= 0){
+        else if(direction == "left" && x - ship_size >= 0){
         
             if(board[y][x-i].ship_tile == true){
                 return false;
                 }
         }
         
-        if(direction == "right" && x + ship_size <= 10){
+        else if(direction == "right" && x + ship_size <= 10){
         
             if(board[y][x+i].ship_tile == true){
                 return false;
                 }
+        }
+        
+        else if(direction != "up" || direction != "down" || direction != "left" || direction != "right"){
+        
+        return false;
         }
         i++;
         
