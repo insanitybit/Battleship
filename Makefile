@@ -1,5 +1,6 @@
 ## file Makefile
 
+# The -O2 is fairly important. The rest are really just there because this will be networked at some point.
 CXXOBJECTS= %.o
 CXX= g++ 
 CXXSOURCES= main.cpp Players.cpp
