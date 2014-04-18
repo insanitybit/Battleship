@@ -9,6 +9,13 @@ The most pratice I'll get out of this is with GITHub.
 
 Right now a base full game is playable with multiple players (currently I have tested 2 player games).
 
+Building
+========
+
+1) Download the source.
+2) Run 'make'
+3) ./Battleship
+
 Features
 ========
 * Multiple players, variable number
