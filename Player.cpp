@@ -23,6 +23,7 @@ string getName();
 bool actionAttacked(int x, int y);
 void displayLess();
 void displayAll();
+int getHits();
 
 private:
 void makeMove(int yC, int xC, string direction, string ship_t);

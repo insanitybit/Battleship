@@ -10,8 +10,6 @@
 
 using namespace std;
 
-const int piece_count = 17;
-
 int fillPlayerCount();
 bool checkLoser(int x);
 void roll();
@@ -22,12 +20,12 @@ int j = 0;
 
 int x;
 int y;
-int z;
 int player_count = 0;
 string player_name;
 char decision;
 bool did_hit;
 
+int temp_size = 2;
 
 player_count = fillPlayerCount();
 
@@ -85,29 +83,19 @@ cout << "New turn " << endl;
             if(decision == 'a' || decision == 'd' || decision == 'm'){
             
                 if(decision == 'a'){
-                    cout << "If you're reading this you're a cheater! :( " << endl;
-                    for(z = 0; z < 1500; z++){
-                    
-                    cout << ".\n..\n...\n...." << endl; //replace with 'clear' later?
-                    
-                    }
-                    
-                    cout << "Displaying " << Player[j].getName() << "'s board." << endl;
-                    Player[j].displayLess();
                     cout << Player[i].getName() << ": Enter in coordinates to attack." << endl;
                     
                     cout << "Enter X coordinate: " << endl;
                     cin >> x;
                     cout << "Enter Y coordinate: " << endl;
                     cin >> y;
-
-
+                    
+                    if(!((x >= 0 || x < 10) && y >= 0 || (y >= 0 || x < 10))){
+                        cout << "Invalid coordinates. Pick 0-9." << endl;
+                        //todo
+                    }
                     did_hit = Player[j].actionAttacked(x,y);
                     Player[j].displayLess();
-                    
-                    if (did_hit == true){
-                    roll();
-                    }
                     
                     //TODO - get return value for success, if success roll for drinking/ stripping
                 }
@@ -136,12 +124,16 @@ cout << "New turn " << endl;
             Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
        }
        
+       cout << "1 j = " << j << endl;
+        cout << "1 i = " << i << endl;
         
     }//End of j loop
-
+    
+       cout << "2 j = " << j << endl;
+        cout << "2 i = " << i << endl;
 }//end outer for loop/ turn loop
 
-
+cout << "3" << endl;
 
 }//end while loop that checks player size to see if it's one
 
@@ -152,11 +144,6 @@ cout << "The winner is: " << Player[0].getName() << "!! Congratulations." << end
 
 bool checkLoser(int x){
     
-    
-   // if (Player[x].getHits == piece_count)
-   // return true;
-    
-   // else
     return false;
 }
 
@@ -173,9 +160,7 @@ int fillPlayerCount(){
 
 void roll(){
 
-//TODO - use RNG to choose action, for now....
 
-cout << "DRINK!" << endl;
 
 
 }
