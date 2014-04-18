@@ -13,10 +13,13 @@ Battleship : main.o Players.o
 
 main.o : main.cpp 
 Players.o : Players.cpp Players.h
-
  
 clean:
 
-	rm *.o Battleship
+	rm main.o Players.o
+	
+cleaner:
+
+    rm main.o Players.o Battleship
 
 ## eof Makefile
