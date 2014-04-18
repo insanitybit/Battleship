@@ -14,7 +14,13 @@ using namespace std;
 
 
 Players::Players(){
-    cout << "\n\n\nTHIS IS THE CONSTRUCTOR\n\n\n" << endl;
+
+Ship_sunk_counter["Patrol Boat"]        = 2;
+Ship_sunk_counter["Cruiser"]            = 3;
+Ship_sunk_counter["Submarine"]          = 3;
+Ship_sunk_counter["Battleship"]         = 4;
+Ship_sunk_counter["Aircraft Carrier"]   = 5;
+
 }
 
 
@@ -68,6 +74,8 @@ int Players::getHits(){
 return hit_tiles;
 }
 
+
+
 bool Players::actionAttacked(int x, int y){
     
     if(board[y][x].ship_tile && board[y][x].hit == false){
@@ -76,6 +84,8 @@ bool Players::actionAttacked(int x, int y){
     
     hit_tiles++;
     
+    Ship_sunk_counter[board[y][x].type_of_ship]--;
+    
     return true;
     }
     
@@ -83,8 +93,7 @@ bool Players::actionAttacked(int x, int y){
     cout << "You've already gone here...'" << endl;
     
     makeMove(300, 300, "no_ship", "invalid"); //SEND MAKEMOVE() INVALID INFORMATION TO ALWAYS REDO MOVE
-    
-    
+        
     }
     
     else{
@@ -301,6 +310,32 @@ bool Players::validMove(int x, int y, string direction, int ship_size){
     return is_valid;
     
 }
+
+bool Players::getSunk(int x, int y){
+
+if(Ship_sunk_counter[board[y][x].type_of_ship] == 0){
+    
+    cout << "You sunk their " << board[y][x].type_of_ship << endl;
+
+    return true;
+}
+
+return false;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
