@@ -7,8 +7,12 @@
 #include <ctime>
 #include <vector>
 #include "Players.h"
+#include <thread>         
+#include <chrono>         
 
 using namespace std;
+using namespace this_thread;
+using namespace chrono;
 
 
 
@@ -72,7 +76,6 @@ while (Player.size() != 1){
 for(i = 0; i < player_count; i++){
 cout << "New turn " << endl;
 
-
     for(j = 0; j < player_count; j++){
     
             if(i == j){
@@ -93,6 +96,9 @@ cout << "New turn " << endl;
                     cout << ".\n..\n...\n...." << endl; //replace with 'clear' later?
                     
                     }
+                    
+                    sleep_for (seconds(10));
+
                     
                     cout << "Displaying " << Player[j].getName() << "'s board." << endl;
                     Player[j].displayLess();
