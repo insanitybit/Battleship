@@ -7,6 +7,8 @@ I'm making this for fun. It's not a particularly impressive or interesting progr
 
 The most pratice I'll get out of this is with GITHub.
 
+Right now a base full game is playable with multiple players (currently I have tested 2 player games).
+
 Features
 ========
 * Multiple players, variable number
