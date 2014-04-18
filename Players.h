@@ -24,6 +24,8 @@ bool actionAttacked(int x, int y);
 void displayLess();
 void displayAll();
 int getHits();
+bool getSunk(int x, int y);
+
 
 private:
 void makeMove(int yC, int xC, string direction, string ship_t);
@@ -31,7 +33,9 @@ string name;
 bool validMove(int x, int y, string direction, int ship_size);
 int hit_tiles;
 
+void decrementShip(int x, int y);
 
+map<string, int> Ship_sunk_counter;
 map<string, int> Ships;
 
 string ship_types[5] = {"Patrol Boat", "Cruiser", "Submarine", "Battleship", "Aircraft Carrier"};
