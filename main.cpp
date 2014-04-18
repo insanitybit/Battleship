@@ -12,7 +12,7 @@ using namespace std;
 
 int fillPlayerCount();
 bool checkLoser(int x);
-
+void roll();
 
 int main(){
 int i = 0;
@@ -20,11 +20,12 @@ int j = 0;
 
 int x;
 int y;
+int z;
 int player_count = 0;
 string player_name;
 char decision;
 bool did_hit;
-
+const int piece_count = 17;
 
 player_count = fillPlayerCount();
 
@@ -34,9 +35,16 @@ while(player_count < 2){
 }
 
 
-vector <Player> Player (player_count);
+vector <Players> Player (player_count);
 
 //Set player names
+
+//Players PlayerOne;
+//Players PlayerTwo;
+
+//Player.push_back(PlayerOne);
+//Player.push_back(PlayerOne);
+
 for(i = 0; i < player_count; i++){
     cout << "What is player " << i+1 << "'s name?" << endl;
     cin >> player_name;
@@ -63,8 +71,8 @@ cout << "New turn " << endl;
 
     for(j = 0; j < player_count; j++){
     
-            if(i == j){ //Don't let a player attack themselves.
-            j++;
+            if(i == j){
+            continue;
             }
             cout << Player[i].getName() << "'s turn against " << Player[j].getName() << endl;
             cout << Player[i].getName() << ": What would you like to do?" << endl;
@@ -75,19 +83,29 @@ cout << "New turn " << endl;
             if(decision == 'a' || decision == 'd' || decision == 'm'){
             
                 if(decision == 'a'){
+                    cout << "If you're reading this you're a cheater! :( " << endl;
+                    for(z = 0; z < 1500; z++){
+                    
+                    cout << ".\n..\n...\n...." << endl; //replace with 'clear' later?
+                    
+                    }
+                    
+                    cout << "Displaying " << Player[j].getName() << "'s board." << endl;
+                    Player[j].displayLess();
                     cout << Player[i].getName() << ": Enter in coordinates to attack." << endl;
                     
                     cout << "Enter X coordinate: " << endl;
                     cin >> x;
                     cout << "Enter Y coordinate: " << endl;
                     cin >> y;
-                    
-                    if(!((x >= 0 || x < 10) && y >= 0 || (y >= 0 || x < 10))){
-                        cout << "Invalid coordinates. Pick 0-9." << endl;
-                        //todo
-                    }
+
+
                     did_hit = Player[j].actionAttacked(x,y);
                     Player[j].displayLess();
+                    
+                    if (did_hit == true){
+                    roll();
+                    }
                     
                     //TODO - get return value for success, if success roll for drinking/ stripping
                 }
@@ -111,15 +129,17 @@ cout << "New turn " << endl;
             }
         
         
-        if(checkLoser(j)){//returns TRUE if 'j' has lost
+            if(checkLoser(j)){//returns TRUE if 'j' has lost
             cout << Player[j].getName() << " loses!" << endl;
             Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
-        }
-        
+       }
+       
         
     }//End of j loop
 
 }//end outer for loop/ turn loop
+
+
 
 }//end while loop that checks player size to see if it's one
 
@@ -130,6 +150,11 @@ cout << "The winner is: " << Player[0].getName() << "!! Congratulations." << end
 
 bool checkLoser(int x){
     
+    
+    if (Player[x]getHits == piece_count)
+    return true;
+    
+    else
     return false;
 }
 
@@ -142,6 +167,15 @@ int fillPlayerCount(){
     
     return count;
     
+}
+
+void roll(){
+
+//TODO - use RNG to choose action, for now....
+
+cout << "DRINK!" << endl;
+
+
 }
 
 
