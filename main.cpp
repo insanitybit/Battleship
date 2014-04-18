@@ -19,6 +19,7 @@ using namespace chrono;
 int fillPlayerCount();
 bool checkLoser(int x);
 void roll();
+void roll(string hold_string);
 
 
 const int piece_count = 17;
@@ -33,7 +34,7 @@ int player_count = 0;
 string player_name;
 char decision;
 bool did_hit;
-
+bool did_sink;
 
 player_count = fillPlayerCount();
 
@@ -93,7 +94,7 @@ cout << "New turn " << endl;
                     cout << "If you're reading this you're a cheater! :( " << endl;
                     for(z = 0; z < 1500; z++){
                     
-                    cout << ".\n..\n...\n...." << endl; //replace with 'clear' later?
+                    cout << ".\n..\n...\n...." << endl; //replace with 'clear' later? - probably not. This + sleep works well.
                     
                     }
                     
@@ -114,10 +115,17 @@ cout << "New turn " << endl;
                     Player[j].displayLess();
                     
                     if (did_hit == true){
-                   // roll();
+                        roll();
+                        did_sink = Player[j].getSunk(x,y);
+                        if(did_sink){
+                        
+                        roll(Player[j].getName());
+                        
+                        }
+                        j--; //POSSIBLE SEGFAULT - CAREFUL
+                        continue;
                     }
                     
-                    //TODO - get return value for success, if success roll for drinking/ stripping
                 }
                 
                 else if(decision == 'd'){
@@ -141,11 +149,12 @@ cout << "New turn " << endl;
         
             if(checkLoser(j)){//returns TRUE if 'j' has lost
             cout << Player[j].getName() << " loses!" << endl;
-           // Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
+            Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
        }
        
         
     }//End of j loop
+
 
 }//end outer for loop/ turn loop
 
@@ -186,8 +195,23 @@ void roll(){
 
 cout << "DRINK!" << endl;
 
+}
+
+void roll(string hold_string){
+
+cout << "Ship sunk. Everyone drinks." << endl; //Obviously this will be more fun later on.
+
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
