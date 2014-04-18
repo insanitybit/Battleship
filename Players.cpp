@@ -200,7 +200,7 @@ void Players::makeMove(int yC, int xC, string direction, string ship_t){
     
         while(i < Ships[ship_t]){
             
-        if(direction == "up"){
+        if(direction == "up" || direction == "u" ){
         
         board[yC+i][xC].ship_tile = true;
         board[yC+i][xC].hit = false;
@@ -209,7 +209,7 @@ void Players::makeMove(int yC, int xC, string direction, string ship_t){
         i++;
         }
         
-        else if(direction == "down"){
+        else if(direction == "down" || direction == "d" ){
         
         board[yC-i][xC].ship_tile = true;
         board[yC-i][xC].hit = false;
@@ -218,7 +218,7 @@ void Players::makeMove(int yC, int xC, string direction, string ship_t){
         i++;
         }
         
-        else if(direction == "left"){
+        else if(direction == "left" || direction == "l" ){
         
         board[yC][xC-i].ship_tile = true;
         board[yC][xC-i].hit = false;
@@ -227,7 +227,7 @@ void Players::makeMove(int yC, int xC, string direction, string ship_t){
         i++;
         }
         
-        else if(direction == "right"){
+        else if(direction == "right" || direction == "r" ){
         
         board[yC][xC+i].ship_tile = true;
         board[yC][xC+i].hit = false;
