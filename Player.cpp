@@ -305,28 +305,28 @@ bool Players::validMove(int x, int y, string direction, int ship_size){
     
     while(i < ship_size){
             
-        if(direction == "up"){
+        if(direction == "up" || direction == "u"){
         
             if(board[y+i][x].ship_tile == true){
                 return false;
                 }
         }
         
-        else if(direction == "down" && y - ship_size >= 0){
+        else if(direction == "down" || direction == "d" && y - ship_size >= 0){
         
             if(board[y-i][x].ship_tile == true){
                 return false;
                 }
         }
         
-        else if(direction == "left" && x - ship_size >= 0){
+        else if(direction == "left" || direction == "l" && x - ship_size >= 0){
         
             if(board[y][x-i].ship_tile == true){
                 return false;
                 }
         }
         
-        else if(direction == "right" && x + ship_size <= 10){
+        else if(direction == "right" || direction == "r" && x + ship_size <= 10){
         
             if(board[y][x+i].ship_tile == true){
                 return false;
