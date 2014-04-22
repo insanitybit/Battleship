@@ -6,9 +6,12 @@
 #include <string>
 #include <ctime>
 #include <vector>
-#include "Players.h"
 #include <thread>         
 #include <chrono>         
+
+
+#include "Players.h"
+#include "Deck.h"
 
 using namespace std;
 using namespace this_thread;
@@ -17,12 +20,13 @@ using namespace chrono;
 
 
 int fillPlayerCount();
-bool checkLoser(int x);
+bool checkLoser(int x, vector <Players>& Playerx);
 void roll();
 void roll(string hold_string);
 
-
+//Battleship only ever has 17 pieces. This value may change in the future though, I'm interested in creating a smaller and larger board 'mode'
 const int piece_count = 17;
+
 int main(){
 int i = 0;
 int j = 0;
@@ -36,6 +40,9 @@ char decision;
 bool did_hit;
 bool did_sink;
 
+Deck deck;
+
+
 player_count = fillPlayerCount();
 
 while(player_count < 2){
@@ -45,14 +52,6 @@ while(player_count < 2){
 
 
 vector <Players> Player (player_count);
-
-//Set player names
-
-//Players PlayerOne;
-//Players PlayerTwo;
-
-//Player.push_back(PlayerOne);
-//Player.push_back(PlayerOne);
 
 for(i = 0; i < player_count; i++){
     cout << "What is player " << i+1 << "'s name?" << endl;
@@ -98,7 +97,7 @@ cout << "New turn " << endl;
                     
                     }
                     
-                    sleep_for (seconds(10));
+
 
                     
                     cout << "Displaying " << Player[j].getName() << "'s board." << endl;
@@ -126,6 +125,10 @@ cout << "New turn " << endl;
                         continue;
                     }
                     
+                    else if(!did_hit){
+                    sleep_for (seconds(10));
+                    }
+                    
                 }
                 
                 else if(decision == 'd'){
@@ -147,7 +150,7 @@ cout << "New turn " << endl;
             }
         
         
-            if(checkLoser(j)){//returns TRUE if 'j' has lost
+            if(checkLoser(j, Player)){//returns TRUE if 'j' has lost
             cout << Player[j].getName() << " loses!" << endl;
             Player.erase(Player.begin() + (j-1)); //remove the item at the first element + j - 1. Remove j.
        }
@@ -167,13 +170,13 @@ cout << "The winner is: " << Player[0].getName() << "!! Congratulations." << end
 } //end main
 
 
-bool checkLoser(int x){
+bool checkLoser(int x, vector <Players>& Playerx){
     
     
-   // if (Player[x].getHits == piece_count)
-   // return true;
+    if (Playerx[x].getHits() == piece_count)
+    return true;
     
-   // else
+    else
     return false;
 }
 
@@ -190,16 +193,44 @@ int fillPlayerCount(){
 
 
 void roll(){
+int hold;
 
-//TODO - use RNG to choose action, for now....
 
-cout << "DRINK!" << endl;
+srand(time(NULL));
+
+hold = rand() % 2;
+
+if(hold <= 1){
+    cout << "Drink!" << endl;
+}
+
+else{
+    cout << "Strip!" << endl;
+}
+
 
 }
 
 void roll(string hold_string){
+int hold;
 
-cout << "Ship sunk. Everyone drinks." << endl; //Obviously this will be more fun later on.
+srand(time(NULL));
+
+hold = rand() % 4;
+
+if(hold <= 1){
+    cout << "Everyone else Drink!" << endl;
+}
+
+else if(hold == 2){
+    cout << "Everyone else Strip!" << endl;
+}
+
+else{
+    cout <<"Time to draw a card!" << endl;
+
+}
+
 
 
 }
