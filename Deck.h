@@ -27,6 +27,8 @@ string suits[4] = {"Clubs", "Spades", "Diamonds", "Hearts"};
 string faces[4] = {"King", "Queen", "Jack", "Ace"};
 
 
+
+
 struct Card{
 
 string color;
@@ -37,6 +39,7 @@ int val;
 } card;
 
 stack<Card> Cards;
+Card shuffle_card[208];
 
 };
 
