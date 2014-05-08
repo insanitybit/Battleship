@@ -56,6 +56,8 @@ void Players::setPieces(){
     
     }
     
+    pieces_set = true;
+    
 }
 
 
@@ -92,8 +94,9 @@ bool Players::actionAttacked(int x, int y){
     else if(board[y][x].hit == true){
     cout << "You've already gone here...'" << endl;
     
-    makeMove(300, 300, "no_ship", "invalid"); //SEND MAKEMOVE() INVALID INFORMATION TO ALWAYS REDO MOVE
-        
+        if(pieces_set == false){
+        makeMove(300, 300, "no_ship", "invalid"); //SEND MAKEMOVE() INVALID INFORMATION TO ALWAYS REDO MOVE
+        }
     }
     
     else{
@@ -181,24 +184,42 @@ void Players::makeMove(int yC, int xC, string direction, string ship_t){
     Ships["Battleship"]          = 4; //3
     Ships["Aircraft Carrier"]    = 5; //4
 
+    string user_check;
     int i = 0;
 
     while (!(validMove(xC, yC, direction, Ships[ship_t]))){
     
     cout << "Invalid move." << endl;
     cout << "Try again. Only positive integers between 0 and 9!!" << endl;
-    cout << "Enter in X coordinate: " << endl;
+    cout << "Enter in X coordinate: \n" << endl;
     cin >> xC;
-    cout << "Enter in Y coordinate: " << endl;
+    cout << "Enter in Y coordinate: \n" << endl;
     cin >> yC;
-    cout << "Which direction should your ship continue in?" << endl;
-    cout << "Enter up, down, left, right." << endl;
+    cout << "Which direction should your ship continue in?\n\n" << endl;
+    cout << "Enter up, down, left, right.\n\n" << endl;
     cin >> direction;
     
     
     
     }
     
+    cout << "Place ship at [" << xC << "," << yC << "] ?(yes/ no)\n";
+    cin >> user_check;
+    
+    while(user_check != "yes" && user_check != "y"){
+    cout << "Alright, reenter the right coordinates this time... \n";
+    cout << "Enter in X coordinate: \n" << endl;
+    cin >> xC;
+    cout << "Enter in Y coordinate: \n" << endl;
+    cin >> yC;
+    cout << "Which direction should your ship continue in?\n\n" << endl;
+    cout << "Enter up, down, left, right.\n\n" << endl;
+    cin >> direction;
+
+    cout << "Place ship at [" << xC << "," << yC << "] ?(yes/ no)\n";
+    cin >> user_check;
+
+    }
     
     if (validMove(xC, yC, direction, Ships[ship_t])){
         board[yC][xC].ship_tile = true;
@@ -257,6 +278,7 @@ void Players::makeMove(int yC, int xC, string direction, string ship_t){
 
 bool Players::validMove(int x, int y, string direction, int ship_size){
     bool is_valid = true;
+    string user_check;
     int i = 0;
     
     if(x < 0 || x > 9 || y < 0 || y > 9){
@@ -302,8 +324,7 @@ bool Players::validMove(int x, int y, string direction, int ship_size){
         
         }
 
-    
-    
+
     
     
     
@@ -314,8 +335,9 @@ bool Players::validMove(int x, int y, string direction, int ship_size){
 bool Players::getSunk(int x, int y){
 
 if(Ship_sunk_counter[board[y][x].type_of_ship] == 0){
-    
+    cout << "\n";
     cout << "You sunk their " << board[y][x].type_of_ship << endl;
+    cout << "\n";
 
     return true;
 }
@@ -323,7 +345,6 @@ if(Ship_sunk_counter[board[y][x].type_of_ship] == 0){
 return false;
 
 }
-
 
 
 
