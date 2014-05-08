@@ -1,7 +1,12 @@
 Right now the majority of the core game works.
 
 Next on this list:
-* Allow a player to display opponents board.
-* There's a segfault when attacking. It should be very simple to address.
+* Allow a player to display opponents board. DONE
+* There's a segfault when attacking. It should be very simple to address. DONE
+
+*
+
+* Implement inventory system. IN PROGRESS
+
 * Validate input a lot more. Especially if this gets networked - right now I make tons of 
-  assumptions about what information will end up in this.
+  assumptions about what information will end up in this. IN PROGRESS
