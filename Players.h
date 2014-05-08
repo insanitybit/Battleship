@@ -32,7 +32,7 @@ void makeMove(int yC, int xC, string direction, string ship_t);
 string name;
 bool validMove(int x, int y, string direction, int ship_size);
 int hit_tiles;
-
+bool pieces_set = false;
 void decrementShip(int x, int y);
 
 map<string, int> Ship_sunk_counter;
