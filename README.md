@@ -5,6 +5,8 @@ This is a game that allows multiple people to play Battleship with each other. A
 
 I'm making this for fun. It's not a particularly impressive or interesting program, but I'll get to use it once in a while, and that's all that I care about in this case.
 
+UPDATE: The game works well enough for me to play with friends. I got some good practice, and I'm putting the project on hold after a bit of tiny patches get finished up. 
+
 The most pratice I'll get out of this is with GITHub.
 
 Right now a base full game is playable with multiple players (currently I have tested 2 player games).
