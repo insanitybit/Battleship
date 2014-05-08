@@ -40,7 +40,7 @@ char decision;
 bool did_hit;
 bool did_sink;
 
-Deck deck;
+//Deck deck;
 
 
 player_count = fillPlayerCount();
@@ -68,7 +68,11 @@ for(i = 0; i < player_count; i++){
     cout << Player[i].getName() << "'s turn to place their pieces..." << endl;
     
     Player[i].setPieces();
-    
+    for(z = 0; z < 1500; z++){
+                    
+    cout << ".\n..\n...\n...." << endl; //replace with 'clear' later? - probably not. This + sleep works well.
+                    
+    }
 }
 
 //Begin turn 
@@ -126,7 +130,7 @@ cout << "New turn " << endl;
                     }
                     
                     else if(!did_hit){
-                    sleep_for (seconds(10));
+                    //sleep_for (seconds(10)); NOT NEEDED RIGHT NOW
                     }
                     
                 }
@@ -173,7 +177,7 @@ cout << "The winner is: " << Player[0].getName() << "!! Congratulations." << end
 bool checkLoser(int x, vector <Players>& Playerx){
     
     
-    if (Playerx[x].getHits() == piece_count)
+    if (Playerx[x].getHits() == 17) //17 is number of pieces
     return true;
     
     else
@@ -234,8 +238,6 @@ else{
 
 
 }
-
-
 
 
 
